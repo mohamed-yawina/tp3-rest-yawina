@@ -1,3 +1,4 @@
+
 package ma.emsi.yawina.tp3restyawina;
 
 import jakarta.inject.Inject;
@@ -15,7 +16,7 @@ public class GuideTouristiqueResource {
     private LlmClient llmClient;
 
     /**
-     * Retourne les endroits à visiter et le prix moyen d'un repas.
+     * Retourne deux endroits à visiter et le prix moyen d'un repas.
      *
      * @param villeOuPays ville ou pays demandé
      * @return informations touristiques au format JSON
@@ -27,5 +28,22 @@ public class GuideTouristiqueResource {
             @PathParam("ville_ou_pays") String villeOuPays) {
 
         return llmClient.endroitsDeVisite(villeOuPays);
+    }
+
+    /**
+     * Retourne le nombre demandé d'endroits à visiter.
+     *
+     * @param villeOuPays ville ou pays demandé
+     * @param nombre nombre d'endroits à visiter
+     * @return informations touristiques au format JSON
+     */
+    @GET
+    @Path("lieu/{ville_ou_pays}/{nombre}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String endroitsDeVisiteAvecNombre(
+            @PathParam("ville_ou_pays") String villeOuPays,
+            @PathParam("nombre") int nombre) {
+
+        return llmClient.endroitsDeVisite(villeOuPays, nombre);
     }
 }

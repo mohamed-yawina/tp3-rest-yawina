@@ -1,3 +1,4 @@
+
 package ma.emsi.yawina.tp3restyawina.llm;
 
 import dev.langchain4j.memory.ChatMemory;
@@ -26,9 +27,10 @@ public class LlmClient {
 
         chatMemory.add(SystemMessage.from("""
                 Tu es un guide touristique.
-                Pour la ville ou le pays demandé, donne exactement deux
-                endroits importants à visiter et le prix moyen d'un repas
-                dans la devise locale.
+                Pour la ville ou le pays demandé, donne le nombre
+                d'endroits importants à visiter indiqué dans la demande.
+                Si aucun nombre n'est indiqué, donne exactement deux endroits.
+                Donne également le prix moyen d'un repas dans la devise locale.
 
                 Réponds uniquement avec un objet JSON valide,
                 sans Markdown, selon cette structure :
@@ -37,6 +39,9 @@ public class LlmClient {
                   "endroits_a_visiter": ["endroit 1", "endroit 2"],
                   "prix_moyen_repas": "<prix> <devise du pays>"
                 }
+
+                Le tableau endroits_a_visiter doit contenir exactement
+                le nombre d'endroits demandé.
                 """));
 
         this.guideTouristique =
@@ -48,5 +53,13 @@ public class LlmClient {
 
     public String endroitsDeVisite(String villeOuPays) {
         return guideTouristique.endroitsDeVisite(villeOuPays);
+    }
+
+    public String endroitsDeVisite(String villeOuPays, int nombre) {
+        return guideTouristique.endroitsDeVisite(
+                "Ville ou pays : " + villeOuPays
+                        + ". Donne exactement " + nombre
+                        + " endroits à visiter."
+        );
     }
 }
