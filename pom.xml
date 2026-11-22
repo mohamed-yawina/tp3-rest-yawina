@@ -48,6 +48,19 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- LangChain4j -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j</artifactId>
+            <version>1.22.0</version>
+        </dependency>
+
+        <!-- Gemini -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-google-genai</artifactId>
+            <version>1.22.0-beta32</version>
+        </dependency>
     </dependencies>
 
     <build>
